@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function useForm(initial = {}) {
   const [inputs, setInputs] = useState(initial);
@@ -38,6 +38,12 @@ export default function useForm(initial = {}) {
 
     setInputs(blankValues);
   }
+
+  const values = Object.values(initial).join('');
+
+  useEffect(() => {
+    setInputs(initial);
+  }, [values]);
 
   return { handleChange, resetForm, clearForm, inputs };
 }
